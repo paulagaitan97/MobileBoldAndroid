@@ -15,3 +15,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "MobileBoldAndroid"
 include ':app'
+include ':clima'
+include ':clima:clima_datos'
+include ':clima:clima_dominio'
+include ':clima:clima_presentacion'
+include ':base-ui'
