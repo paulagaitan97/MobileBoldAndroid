@@ -4,6 +4,7 @@
     package="com.gaitan.dev.mobileboldandroid">
 
     <application
+        android:name=".PruebaBoldApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
