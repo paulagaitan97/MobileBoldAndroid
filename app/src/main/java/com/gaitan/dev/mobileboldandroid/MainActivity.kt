@@ -4,13 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.gaitan.dev.clima_presentacion.pantalla.PantallaBusquedaUbicacion
+import com.gaitan.dev.mobileboldandroid.navegacion.GrafoDeNavegacionApp
 import com.gaitan.dev.mobileboldandroid.ui.theme.MobileBoldAndroidTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -20,30 +25,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MobileBoldAndroidTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
+                val controladoNavegacion = rememberNavController()
+                val estadoEstructuraVisual = rememberScaffoldState()
+                Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    PantallaBusquedaUbicacion(valorSecreto = BuildConfig.API_KEY)
+                    scaffoldState = estadoEstructuraVisual
+                ) { valorRelleno ->
+                    GrafoDeNavegacionApp(
+                        modifier = Modifier.padding(valorRelleno),
+                        navControlador = controladoNavegacion
+                    )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MobileBoldAndroidTheme {
-        Greeting("Android")
     }
 }
