@@ -1,10 +1,16 @@
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
 }
+val API_KEY: String = project.property("API_KEY") as String? ?: "No Api"
 
+android.buildTypes.forEach { type ->
+    type.buildConfigField("String", "API_KEY", API_KEY)
+
+}
 android {
     compileSdk = ConfiguracionProyecto.compileSdk
     namespace = ConfiguracionProyecto.applicationId
@@ -24,10 +30,12 @@ android {
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
+            getDefaultProguardFile("proguard-android-optimize.txt")
         }
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -52,6 +60,10 @@ android {
 }
 
 dependencies {
+    implementation(project(Modulos.climaDatos))
+    implementation(project(Modulos.climaDominio))
+    implementation(project(Modulos.climaPresentacion))
+    implementation(project(Modulos.baseUi))
     implementation(Compose.compiler)
     implementation(Compose.ui)
     implementation(Compose.uiToolingPreview)
