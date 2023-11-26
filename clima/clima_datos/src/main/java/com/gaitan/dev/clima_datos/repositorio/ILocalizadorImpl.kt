@@ -16,7 +16,7 @@ class ILocalizadorImpl(private val api: RutaClimaModulo) : ILocalizador {
                 localizadorBaseDto.map { LocalizadorBase(ciudad = it.name, pais = it.country, region = it.region) }
             )
         } catch (e: Exception) {
-            e.printStackTrace()
+            Sentry.captureMessage("Error listado ubicaciones ${e.localizedMessage}")
             Result.failure(e)
         }
     }
@@ -28,7 +28,7 @@ class ILocalizadorImpl(private val api: RutaClimaModulo) : ILocalizador {
                 mapDetalleUbicacionDtoToDetalleUbicacion(detalleUbicacionDto)
             )
         } catch (e: Exception) {
-            Sentry.captureMessage("Error ubicacion seleccionada ${e.localizedMessage}")
+            Sentry.captureMessage("Error ubicacion seleccionada ${e.localizedMessage} ${e.cause}")
             Result.failure(e)
         }
     }

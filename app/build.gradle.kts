@@ -65,6 +65,7 @@ dependencies {
     implementation(project(Modulos.climaDominio))
     implementation(project(Modulos.climaPresentacion))
     implementation(project(Modulos.baseUi))
+    implementation(project(Modulos.base))
     implementation(Compose.compiler)
     implementation(Compose.ui)
     implementation(Compose.uiToolingPreview)

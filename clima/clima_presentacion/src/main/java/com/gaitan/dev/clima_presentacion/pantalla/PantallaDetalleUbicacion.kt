@@ -31,10 +31,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
+import com.gaitan.dev.base_ui.componente.molecula.Dialogo
 import com.gaitan.dev.base_ui.componente.organismo.DetalleTemperatura
 import com.gaitan.dev.base_ui.componente.organismo.EncabezadoInformativo
 import com.gaitan.dev.base_ui.componente.organismo.TarjetaTemperatura
 import com.gaitan.dev.clima_dominio.modelo.PronosticoDetalle
+import com.gaitan.dev.clima_presentacion.comportamiento.ClimaUiEvento
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -48,6 +50,8 @@ fun PantallaDetalleUbicacion(
     eventoVolver: () -> Unit
 ) {
     val estadoDetalle = detalleUbicacionViewModel.detalleUbicacionEstado
+    var esVisibleModal by remember { mutableStateOf(false) }
+    var descripcion by remember { mutableStateOf("" ) }
     var indiceSeleccionado by rememberSaveable {
         mutableStateOf(0)
     }
@@ -59,7 +63,16 @@ fun PantallaDetalleUbicacion(
                 filtro = dias
             )
         )
+        detalleUbicacionViewModel.uiEvento.collect { evento ->
+            when(evento) {
+                is ClimaUiEvento.MostrarModal -> {
+                    esVisibleModal = evento.mostrarModal
+                    descripcion = evento.descripcion
+                }
+            }
+        }
     }
+
     if (estadoDetalle.ubicacionDetalle != null) {
         Scaffold(
             topBar = {
@@ -125,6 +138,13 @@ fun PantallaDetalleUbicacion(
         when {
             estadoDetalle.cargandoBusqueda -> CircularProgressIndicator()
         }
+    }
+
+    if (esVisibleModal){
+        Dialogo(
+            mensaje = descripcion, titulo = "Error", textoBoton = "Salir",
+            eventoSalir = { esVisibleModal = false }
+        )
     }
 }
 
