@@ -20,6 +20,6 @@ fun GrafoDeNavegacionApp(
             navControlador.navigate(TipoGrafoNavegacion.CLIMA)
         })
 
-        climaGrafo(navegacionBase = {})
+        climaGrafo(navegacionBase = {}, navControlador = navControlador)
     }
 }

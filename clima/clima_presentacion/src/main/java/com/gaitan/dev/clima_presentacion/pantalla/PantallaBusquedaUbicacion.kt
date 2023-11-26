@@ -10,6 +10,11 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -17,17 +22,22 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gaitan.dev.base_ui.componente.molecula.BarraDeBusqueda
+import com.gaitan.dev.base_ui.componente.molecula.Dialogo
 import com.gaitan.dev.base_ui.componente.molecula.TarjetaBusquedaDetalle
 import com.gaitan.dev.base_ui.componente.molecula.TarjetaInformativaVertical
+import com.gaitan.dev.clima_presentacion.comportamiento.ClimaUiEvento
 import com.gaitan.dev.clima_presentacion.comportamiento.LocalizadorEvento
 import com.gaitan.dev.clima_presentacion.modelovista.LocalizadorUbicacionViewModel
 
 @Composable
 fun PantallaBusquedaUbicacion(
     localizadorUbicacionViewModel: LocalizadorUbicacionViewModel = hiltViewModel(),
-    valorSecreto: String
+    valorSecreto: String,
+    eventoDetalleUbicacion: (String, String, Int) -> Unit
 ){
-    var estadoLocalizador = localizadorUbicacionViewModel.localizadorEstado
+    val estadoLocalizador = localizadorUbicacionViewModel.localizadorEstado
+    var esVisibleModal by remember { mutableStateOf(false) }
+    var descripcion by remember { mutableStateOf("" ) }
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
         val (barraDeBusqueda, listaDetalles) = createRefs()
 
@@ -60,7 +70,9 @@ fun PantallaBusquedaUbicacion(
                 TarjetaBusquedaDetalle(
                     titulo = estadoLocalizador.detalleBusqueda[indice].ciudad,
                     descripcion = estadoLocalizador.detalleBusqueda[indice].pais,
-                    onClick = { /* Manejar el clic en el detalle aquí */ }
+                    onClick = {
+                       eventoDetalleUbicacion(estadoLocalizador.detalleBusqueda[indice].ciudad, valorSecreto, 3)
+                    }
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
@@ -79,5 +91,23 @@ fun PantallaBusquedaUbicacion(
                 )
             }
         }
+    }
+
+    LaunchedEffect(key1 = true){
+        localizadorUbicacionViewModel.uiEvento.collect { evento ->
+            when(evento) {
+                is ClimaUiEvento.MostrarModal -> {
+                    esVisibleModal = evento.mostrarModal
+                    descripcion = evento.descripcion
+                }
+            }
+        }
+    }
+
+    if (esVisibleModal){
+        Dialogo(
+           mensaje = descripcion, titulo = "Error", textoBoton = "Salir",
+            eventoSalir = { esVisibleModal = false }
+        )
     }
 }

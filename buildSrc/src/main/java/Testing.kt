@@ -27,4 +27,7 @@ object Testing {
 
     private const val testRunnerVersion = "1.4.0"
     const val testRunner = "androidx.test:runner:$testRunnerVersion"
+
+    private const val testMockitoCoreVersion = "5.1.1"
+    const val mockito = "org.mockito:mockito-core:$testMockitoCoreVersion"
 }

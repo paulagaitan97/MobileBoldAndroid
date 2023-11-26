@@ -2,6 +2,7 @@ object Modulos {
     // Modulos Estructurales
     const val app = ":app"
     const val baseUi = ":base-ui"
+    const val base = ":base"
 
     // Modulos Escalables
     const val climaDatos = ":clima:clima_datos"

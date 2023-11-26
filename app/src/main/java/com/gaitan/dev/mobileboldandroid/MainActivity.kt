@@ -18,11 +18,21 @@ import com.gaitan.dev.clima_presentacion.pantalla.PantallaBusquedaUbicacion
 import com.gaitan.dev.mobileboldandroid.navegacion.GrafoDeNavegacionApp
 import com.gaitan.dev.mobileboldandroid.ui.theme.MobileBoldAndroidTheme
 import dagger.hilt.android.AndroidEntryPoint
+import io.sentry.Sentry
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    // waiting for view to draw to better represent a captured error with a screenshot
+    findViewById<android.view.View>(android.R.id.content).viewTreeObserver.addOnGlobalLayoutListener {
+      try {
+        throw Exception("This app uses Sentry! :)")
+      } catch (e: Exception) {
+        Sentry.captureException(e)
+      }
+    }
+
         setContent {
             MobileBoldAndroidTheme {
                 val controladoNavegacion = rememberNavController()

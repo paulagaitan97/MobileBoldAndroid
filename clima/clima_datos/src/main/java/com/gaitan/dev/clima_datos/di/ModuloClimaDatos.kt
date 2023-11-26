@@ -7,6 +7,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.sentry.android.okhttp.SentryOkHttpEventListener
+import io.sentry.android.okhttp.SentryOkHttpInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -21,6 +23,8 @@ object ModuloClimaDatos {
     @Singleton
     fun proveedorOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(SentryOkHttpInterceptor())
+            .eventListener(SentryOkHttpEventListener())
             .addInterceptor(
                 HttpLoggingInterceptor().apply {
                     level = HttpLoggingInterceptor.Level.BODY
