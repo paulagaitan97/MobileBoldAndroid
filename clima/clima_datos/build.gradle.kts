@@ -9,6 +9,8 @@ dependencies {
     "implementation"(Retrofit.okHttpLoggingInterceptor)
     "implementation"(Retrofit.moshiConverter)
     "implementation"(Retrofit.gsonConverter)
+    "implementation"(Monitoreo.sentryAndroid)
+    "implementation"(Monitoreo.sentryHttp)
     "implementation"(Gson.gson)
     "kapt"(Room.roomCompiler)
     "implementation"(Room.roomKtx)

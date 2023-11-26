@@ -4,6 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    id("io.sentry.android.gradle") version "3.14.0"
 }
 val API_KEY: String = project.property("API_KEY") as String? ?: "No Api"
 
@@ -83,6 +84,8 @@ dependencies {
     implementation(Retrofit.retrofit)
     implementation(Retrofit.okHttpLoggingInterceptor)
     implementation(Retrofit.moshiConverter)
+    implementation (Monitoreo.sentryAndroid)
+    implementation (Monitoreo.sentryHttp)
     kapt(Room.roomCompiler)
     implementation(Room.roomKtx)
     implementation(Room.roomRuntime)
@@ -105,4 +108,13 @@ dependencies {
     androidTestImplementation(Testing.hiltTesting)
     kaptAndroidTest(DaggerHilt.hiltCompiler)
     androidTestImplementation(Testing.testRunner)
+}
+
+sentry {
+    org.set("na-20x")
+    projectName.set("android-5s")
+
+    // this will upload your source code to Sentry to show it as part of the stack traces
+    // disable if you don't want to expose your sources
+    includeSourceContext.set(true)
 }
