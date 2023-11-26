@@ -54,5 +54,6 @@ Una vez que la aplicación se ejecute correctamente, explora las diferentes pant
 
 ![image](https://github.com/paulagaitan97/MobileBoldAndroid/assets/23261158/0b0807be-1a4a-48d9-8442-37ef44d6a599)
 
-![image](https://github.com/paulagaitan97/MobileBoldAndroid/assets/23261158/6739fc44-40e5-4c6f-a8fd-392cfb6eb864)
+![image](https://github.com/paulagaitan97/MobileBoldAndroid/assets/23261158/d9a78ea5-f3fe-4a75-ae3c-97b1cdbdc3ef)
+
 

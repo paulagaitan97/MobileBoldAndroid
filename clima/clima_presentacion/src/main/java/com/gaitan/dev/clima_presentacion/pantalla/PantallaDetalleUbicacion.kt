@@ -97,13 +97,13 @@ fun PantallaDetalleUbicacion(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 EncabezadoInformativo(
-                    modifier = Modifier
+                    Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
-                    textoCiudad = estadoDetalle.ubicacionDetalle!!.localizadorBase.ciudad,
-                    textoRegion = estadoDetalle.ubicacionDetalle!!.localizadorBase.region,
-                    textoPais = estadoDetalle.ubicacionDetalle!!.localizadorBase.pais,
-                    valorTemperatura = estadoDetalle.ubicacionDetalle!!.detalleUbicacionActual.temperaturaC
+                    estadoDetalle.ubicacionDetalle.localizadorBase.ciudad,
+                    estadoDetalle.ubicacionDetalle.localizadorBase.region,
+                    estadoDetalle.ubicacionDetalle.localizadorBase.pais,
+                    estadoDetalle.ubicacionDetalle.detalleUbicacionActual.temperaturaC
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 ListadoFechas(
@@ -166,6 +166,9 @@ fun FechaButton(fecha: String, onFechaSeleccionada: () -> Unit, posicionSeleccio
     val fechaActual = remember { LocalDate.parse(fecha) }
     val diaSemana = remember { fechaActual.dayOfWeek }
     val diaMes = remember { fechaActual.dayOfMonth }
+    val nombresDiasSemana = listOf(
+        "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
+    )
     Column(
         modifier = Modifier
             .background(if (posicionSeleccionada) MaterialTheme.colors.secondary else MaterialTheme.colors.primary)
@@ -175,7 +178,7 @@ fun FechaButton(fecha: String, onFechaSeleccionada: () -> Unit, posicionSeleccio
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = diaMes.toString(), color = Color.White)
-        Text(text = diaSemana.name, color = Color.White)
+        Text(text = nombresDiasSemana[diaSemana.value - 1], color = Color.White)
     }
 }
 fun obtenerHoraEnFormato(fechaYHora: String): String {
