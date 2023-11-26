@@ -1,6 +1,7 @@
 package com.gaitan.dev.clima_dominio.di
 
 import com.gaitan.dev.clima_dominio.casouso.ClimaCasosUsos
+import com.gaitan.dev.clima_dominio.casouso.ObtenerDetalleUbicacionSeleccionada
 import com.gaitan.dev.clima_dominio.casouso.ObtenerUbicacionesPorBusqueda
 import com.gaitan.dev.clima_dominio.repositorio.ILocalizador
 import dagger.Module
@@ -18,7 +19,8 @@ object ModuloClimaDominio {
         iLocalizador: ILocalizador
     ): ClimaCasosUsos {
         return ClimaCasosUsos(
-            obtenerUbicacionesPorBusqueda = ObtenerUbicacionesPorBusqueda(iLocalizador = iLocalizador)
+            obtenerUbicacionesPorBusqueda = ObtenerUbicacionesPorBusqueda(iLocalizador = iLocalizador),
+            detalleUbicacionSeleccionada = ObtenerDetalleUbicacionSeleccionada(iLocalizador = iLocalizador)
         )
     }
 }

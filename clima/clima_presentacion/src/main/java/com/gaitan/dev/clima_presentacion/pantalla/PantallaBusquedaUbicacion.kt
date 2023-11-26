@@ -25,7 +25,8 @@ import com.gaitan.dev.clima_presentacion.modelovista.LocalizadorUbicacionViewMod
 @Composable
 fun PantallaBusquedaUbicacion(
     localizadorUbicacionViewModel: LocalizadorUbicacionViewModel = hiltViewModel(),
-    valorSecreto: String
+    valorSecreto: String,
+    eventoDetalleUbicacion: (String, String, Int) -> Unit
 ){
     var estadoLocalizador = localizadorUbicacionViewModel.localizadorEstado
     ConstraintLayout(modifier = Modifier.fillMaxSize()) {
@@ -60,7 +61,9 @@ fun PantallaBusquedaUbicacion(
                 TarjetaBusquedaDetalle(
                     titulo = estadoLocalizador.detalleBusqueda[indice].ciudad,
                     descripcion = estadoLocalizador.detalleBusqueda[indice].pais,
-                    onClick = { /* Manejar el clic en el detalle aquí */ }
+                    onClick = {
+                       eventoDetalleUbicacion(estadoLocalizador.detalleBusqueda[indice].ciudad, valorSecreto, 3)
+                    }
                 )
                 Spacer(modifier = Modifier.height(8.dp))
             }
