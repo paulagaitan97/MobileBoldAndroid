@@ -4,4 +4,5 @@ apply {
 
 dependencies {
     "implementation"(Compose.constraintLayoutCompose)
+    "implementation"(Coil.coilCompose)
 }

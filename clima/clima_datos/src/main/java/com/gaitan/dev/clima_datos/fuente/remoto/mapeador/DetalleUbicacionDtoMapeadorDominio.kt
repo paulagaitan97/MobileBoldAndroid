@@ -9,15 +9,15 @@ import com.gaitan.dev.clima_datos.fuente.remoto.PronosticoUbicacionDto
 import com.gaitan.dev.clima_dominio.modelo.CondicionHoraDetalle
 import com.gaitan.dev.clima_dominio.modelo.DetalleActual
 import com.gaitan.dev.clima_dominio.modelo.DetalleUbicacion
+import com.gaitan.dev.clima_dominio.modelo.LocalizadorBase
 import com.gaitan.dev.clima_dominio.modelo.PronosticoDetalle
+import com.gaitan.dev.clima_dominio.modelo.PronosticoDia
 import com.gaitan.dev.clima_dominio.modelo.PronosticoHoraDetalle
 import com.gaitan.dev.clima_dominio.modelo.PronosticoUbicacion
 
 fun mapDetalleUbicacionDtoToDetalleUbicacion(dto: DetalleUbicacionDto): DetalleUbicacion {
     return DetalleUbicacion(
-        nombre = dto.location.name,
-        region = dto.location.region,
-        pais = dto.location.country,
+        localizadorBase = LocalizadorBase(ciudad = dto.location.name, region = dto.location.region, pais = dto.location.country),
         detalleUbicacionActual = mapDetalleActualDtoToDetalleActual(dto.current),
         pronostico = mapPronosticoUbicacionDtoToPronosticoUbicacion(dto.forecast)
     )
@@ -45,12 +45,14 @@ fun mapPronosticoUbicacionDtoToPronosticoUbicacion(dto: PronosticoUbicacionDto):
 fun mapPronosticoDetalleDtoToPronosticoDetalle(dto: PronosticoDetalleDto): PronosticoDetalle {
     return PronosticoDetalle(
         fecha = dto.date,
+        dia = PronosticoDia(promedioTemperatura = dto.day.avgtemp_c),
         horaDia = dto.hour.map { mapPronosticoHoraDetalleDtoToPronosticoHoraDetalle(it) }
     )
 }
 
 fun mapPronosticoHoraDetalleDtoToPronosticoHoraDetalle(dto: PronosticoHoraDetalleDto): PronosticoHoraDetalle {
     return PronosticoHoraDetalle(
+        tiempo = dto.time,
         temperaturaC = dto.temp_c,
         condicion = mapCondicionHoraDetalleDtoToCondicionHoraDetalle(dto.condition)
     )

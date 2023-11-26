@@ -1,6 +1,5 @@
 package com.gaitan.dev.clima_datos.repositorio
 
-import android.util.Log
 import com.gaitan.dev.clima_datos.fuente.remoto.RutaClimaModulo
 import com.gaitan.dev.clima_datos.fuente.remoto.mapeador.mapDetalleUbicacionDtoToDetalleUbicacion
 import com.gaitan.dev.clima_dominio.modelo.DetalleUbicacion

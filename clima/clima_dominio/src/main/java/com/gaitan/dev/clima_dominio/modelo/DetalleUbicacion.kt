@@ -1,9 +1,7 @@
 package com.gaitan.dev.clima_dominio.modelo
 
 data class DetalleUbicacion(
-    val nombre: String,
-    val region: String,
-    val pais: String,
+    val localizadorBase: LocalizadorBase,
     val detalleUbicacionActual: DetalleActual,
     val pronostico:PronosticoUbicacion
 )
