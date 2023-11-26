@@ -47,3 +47,12 @@ Una vez que la aplicación se ejecute correctamente, explora las diferentes pant
 
 ### Notas Adicionales:
 - Versión mínima de SDK a usar: 21 (Android 5.0 Lollipop).
+
+### Imagenes de Resultados
+
+![image](https://github.com/paulagaitan97/MobileBoldAndroid/assets/23261158/c47cbe49-86f4-486e-9a96-0f85317560ab)
+
+![image](https://github.com/paulagaitan97/MobileBoldAndroid/assets/23261158/0b0807be-1a4a-48d9-8442-37ef44d6a599)
+
+![image](https://github.com/paulagaitan97/MobileBoldAndroid/assets/23261158/6739fc44-40e5-4c6f-a8fd-392cfb6eb864)
+
